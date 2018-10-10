@@ -7,6 +7,9 @@ info:
 tags:
 - name: user
   description: Endpoints connected to User
+  
+- name: event
+  description: Endpoints connected to Event
 
 paths:
 
@@ -99,7 +102,48 @@ paths:
             $ref: '#/definitions/User'
         401:
           description: No or invalid token provided
+          
+  /events/new:
+    post:
+      tags:
+      - event
+      operationId: registerEvent
+      description: |
+        Registers a new Event on website
+      consumes:
+      - application/json
+      parameters:
+      - in: body
+        name: newEvent
+        schema:
+          type: object
+          properties:
+            sportname:
+              type: string
+            Creator:
+              type: string
+            Name:
+              type: string
+            Location:
+              type: string
+            Date:
+              type: string
+            Description:
+              type: string
+              
+      responses:
+        201:
+          description: Event registered successfully
+        400:
+          description: Invalid or missing information
+        409:
+          description: This sport category does not exist
+        410:
+          description: User is not found
+        500:
+          description: Server error
 
+ 
 definitions:
 
   User:
@@ -162,4 +206,6 @@ schemes:
  - https
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
-basePath: /temalaborsport/test/1.0.0
+# basePath: /api/
+# Added by API Auto Mocking Plugin
+basePath: /temalaborsport/sportAPI/1.0.0
